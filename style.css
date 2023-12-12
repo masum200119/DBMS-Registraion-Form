@@ -1,0 +1,31 @@
+input, textarea, select {
+    color: #1E266D;
+    background: #F5FAFF !important;
+    border: 1px solid #EEF1FF;
+    border-radius: 5px;
+}
+label {
+    display: inline-block;
+    max-width: 100% !important;
+    margin-bottom: 10px !important;
+    font-weight: bold !important;
+}
+.address{
+        color:#1D6589 !important;
+    }
+    .main-heading
+    {
+      font-size:35px !important;color:#1D6589 !important; text-shadow: 2px 0 #1D6589 !important;
+font-weight:bold !important; text-align:center;
+    }
+    .sub-heading{
+      font-weight:bold !important;color:#1D6589 !important;
+    }
+
+    .email{
+      color:#1D6589 !important;text-align: center !important;
+    }
+    .main-heading
+    {
+      font-size:30px !important;
+    }
