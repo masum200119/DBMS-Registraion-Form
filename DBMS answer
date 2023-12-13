@@ -1,0 +1,240 @@
+create database Workbench;
+use Workbench;
+create table employee
+(
+employee_name varchar(20) primary key not null,
+street varchar(20) not null,
+city varchar(25) not null
+);
+show databases;
+select*
+from employee;
+
+insert into employee(employee_name,street,city) values("Rakib","Savar","Dhaka");
+insert into employee(employee_name,street,city) values("Sohan","Tongi","Gazipur");
+insert into employee(employee_name,street,city) values("Sefu","Vadra","Rajshahi");
+insert into employee(employee_name,street,city) values("Raihan","Vadra","Rajshahi");
+insert into employee(employee_name,street,city) values("Abid","Mashkanda","Mymensingh");
+insert into employee(employee_name,street,city) values("Rohan","Chorpara","Mymensingh");
+insert into employee(employee_name,street,city) values("Sadia","Bera","Pabna");
+
+create table works
+(
+employee_name varchar(20) primary key not null,
+company_name varchar(30) not null,
+salary int
+);
+show databases;
+select*
+from works;
+
+insert into works(employee_name,company_name,salary) values("Rakib","Janata Bank","5000");
+insert into works(employee_name,company_name,salary) values("Sohan","First Bank Corporation","14500");
+insert into works(employee_name,company_name,salary) values("Sefu","Sonali Bank","10500");
+insert into works(employee_name,company_name,salary) values("Raihan","Sonali Bank","7500");
+insert into works(employee_name,company_name,salary) values("Abid","City Bank","9500");
+insert into works(employee_name,company_name,salary) values("Rohan","Janata Bank","9500");
+insert into works(employee_name,company_name,salary) values("Sadia","Sonali Bank","11000");
+
+create table company
+(
+company_name varchar(30) not null,
+ city varchar(20) not null
+);
+show databases;
+select*
+from company;
+insert into company(company_name,city) values("Janata Bank","Kushtia");
+insert into company(company_name,city) values("Janata Bank","Tongi");
+insert into company(company_name,city) values("First Bank Corporation","Gazipur");
+insert into company(company_name,city) values("Sonali Bank","Rajshahi");
+insert into company(company_name,city) values("City Bank","Mymensingh");
+insert into company(company_name,city) values("Janata Bank","Mymensingh");
+insert into company(company_name,city) values("Sonali Bank","Pabna");
+
+create table manages
+(
+employee_name varchar(20),
+manager_name varchar(25)
+);
+show databases;
+select*
+from manages;
+
+insert into manages(employee_name,manager_name) values("Rakib","Ontu");
+insert into manages(employee_name,manager_name) values("Sohan","Jun");
+insert into manages(employee_name,manager_name) values("Sefu","Raihan");
+insert into manages(employee_name,manager_name) values("Abid","Ahsan");
+insert into manages(employee_name,manager_name) values("Rohan","Guruji");
+insert into manages(employee_name,manager_name) values("Sadia","Tanmoy");
+
+ a)	Find the names, street address, and cities of residence for all employees who work for
+'Janata Bank' and earn more than TK 10,000.
+
+(a)select *
+from employee
+where employee_name in
+(select employee_name
+from works
+where company_name = 'Sonali Bank' and salary>10000);
+
+(a)select e.employee_name,e.street,e.city
+from employee as e,works as w
+where e.employee_name=w.employee_name and company_name='Sonali bank'and salary>10000;
+
+b)Find the names of all employees in the database who live in the same cities as the
+ companies for which they work.
+
+(b)select E.employee_name
+from Employee as E, Works as W, Company as C
+where E.employee_name=W.employee_name and E.city=C.city
+and W.company_name=C.company_name;
+
+
+c)Find the names of all employees in the database who live in the same cities and on the
+same streets as do their managers.
+
+(c)select P.employee_name
+from employee P, employee R, manages M
+where P.employee_name = M.employee_name and
+M.manager_name = R.employee_name and
+P.street = R.street and P.city = R.city;
+
+d)Find the names of all employees in the database who do not work for 'First Bank
+ Corporation'. Assume that all people work for exactly one company.
+
+(d)select employee_name
+from works
+where company_name!='First Bank Corporation';
+
+e)Find the names of all employees in the database who earn more than every employee
+ of 'Sonali Bank'. Assume that all people work for at most one company.
+
+(e)select employee_name
+from works
+where salary > all
+(select salary
+from works
+where company_name = 'Sonali Bank');
+
+f)Assume that the companies may be located in several cities. Find all companies
+located in every city in which 'Sonali Bank' is located.
+
+(f)select company_name, city from company
+where city in (select city from company where company_name="Sonali Bank");
+
+g)Find the names of all employees who earn more than the average salary of all
+employees of their company. Assume that all people work for at most one company.
+
+(g)select employee_name
+from works T
+where salary > (select avg (salary)
+from works S
+where T.company_name = S.company_name);
+
+h)Find the name of the company that has the smallest payroll.
+
+(h)select company_name, sum(salary)
+from works
+group by company_name
+order by sum(salary)
+LIMIT 1;
+
+(h)select company-name
+from works
+group by company-name
+having sum(salary) <= all (select sum(salar y)
+                       from works
+                       group by company-name);
+You sent
+create database assignment_2;
+use assignment_2;
+
+create table book
+(
+book_name varchar(30),
+author varchar(30),
+price int,
+quantity int
+);
+show databases;
+select*
+from book;
+
+insert into book(book_name, author, price, quantity) values('Lion','Ahsan','200','5');
+insert into book(book_name, author, price, quantity) values('Moana','Disney','250','3');
+insert into book(book_name, author, price, quantity) values('Dragon','Pixel','200','5');
+insert into book(book_name, author, price, quantity) values('Mind Setup','Kiin','150','5');
+
+
+create table customer
+(
+Cust_id int,
+Cust_name varchar(30),
+Addr varchar(30),
+Ph_no int,
+Pan_no int
+);
+
+select*
+from customer;
+
+insert into customer (Cust_id,Cust_name,Addr,ph_no,pan_no) values('01','Utsho','Housing,Kushtia','01721951562','01971715825');
+
+
+(i) Truncate the table customer.
+(i)truncate table customer;
+
+(ii) List the author of the book which one have the price of 200.
+(ii)select author
+from book
+where price='200';
+
+(iii) List the price of the book which one is between the price of 175 & 250.
+(iii)select book_name,price
+from book
+where price between 175 and 245;
+
+(iv) Retrieve all the details from the table book whose author name start with K
+(iv)select*
+from book
+where author like 'K%';
+You sent
+create database University;
+use University;
+
+create table stu_details
+(
+reg_no int primary key,
+sudent_name varchar(30),
+DOB date,
+adress varchar(30),
+city varchar(30)
+);
+
+insert into stu_details(reg_no,student_name,DOB,adress,city) values('101750','Shuvo','1999-03-08','Dhula','Pabna');
+
+select*
+from stu_details;
+
+create table mark_details
+(reg_no int,
+mark1 int,
+mark2 int,
+mark3 int,
+total int);
+
+select*
+from mark_details;
+
+(i) Find out the name of all students.
+(i)select sudent_name
+from stu_details;
+
+(ii) List all the student detail that who are all located in Chennai.
+(ii)select sudent_name
+from stu_details
+where city='Chennai';
+
+(iii) Drop the table mark_details.
+(iii)sdrop table mark_details;
